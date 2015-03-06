@@ -1,9 +1,15 @@
+sourceCompatibility = 1.5
+version = '1.0'
+springVersion = '4.0.1.RELEASE'
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'jetty'
 
-sourceCompatibility = 1.5
-version = '1.0'
+jar {
+    baseName = 'hackathon-service'
+    version =  '1.0'
+}
 
 repositories {
     mavenCentral()
@@ -13,5 +19,12 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-core', version: '4.0.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-web', version: '4.0.1.RELEASE'
     compile group: 'org.springframework', name: 'spring-webmvc', version: '4.0.1.RELEASE'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.3.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.3.0'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.3.0'
     testCompile group: 'junit', name: 'junit', version: '3.8.1'
+}
+
+jettyRun {
+    httpPort=9091
 }

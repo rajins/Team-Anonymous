@@ -1,4 +1,4 @@
-package com.angularapps.model;
+package com.saggezza.hackathon.model;
 
 import java.io.Serializable;
 
