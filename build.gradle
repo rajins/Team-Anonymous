@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'jetty'
+
+sourceCompatibility = 1.5
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.springframework', name: 'spring-core', version: '4.0.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-web', version: '4.0.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.0.1.RELEASE'
+    testCompile group: 'junit', name: 'junit', version: '3.8.1'
+}
