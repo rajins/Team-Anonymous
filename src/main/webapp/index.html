@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="lib/jquery-2.1.1/jquery.js"></script>
+    <script src="lib/angular-1.3.9/angular.min.js"></script>
+    <script src="lib/angular-1.3.9/angular-resource.min.js"></script>
+
+    <script src="app/app.js"></script>
+    <script src="app/controller/MyAppController.js"></script>
+</head>
+<body>
+<div ng-controller="MyAppController">
+    <h2>{{message}}</h2>
+
+    {{data}}
+    <button ng-click="getListData()">click</button>
+</div>
+</body>
+</html>
