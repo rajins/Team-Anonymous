@@ -10,7 +10,7 @@ myApp.service('myAppService', function(appFactory) {
 
     return {
         getData: function () {
-            return appFactory.ncGetNoMask('http://172.16.10.35:9091/Team-Anonymous/cricket/data/player.htm', {});
+            return appFactory.ncGetNoMask('http://172.16.10.35:9091/Team-Anonymous/services/cricket/data/player', {});
         }
     }
 });
