@@ -3,66 +3,8 @@
     'use strict';
 
     Chart.defaults.global.responsive = true;
-    var anonymousChart = angular.module('anonymousChart', []);
 
-    Chart.defaults.global.colours = [
-        { // blue
-            fillColor: 'rgba(151,187,205,0.2)',
-            strokeColor: 'rgba(151,187,205,1)',
-            pointColor: 'rgba(151,187,205,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(151,187,205,0.8)'
-        },
-        { // light grey
-            fillColor: 'rgba(220,220,220,0.2)',
-            strokeColor: 'rgba(220,220,220,1)',
-            pointColor: 'rgba(220,220,220,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(220,220,220,0.8)'
-        },
-        { // red
-            fillColor: 'rgba(247,70,74,0.2)',
-            strokeColor: 'rgba(247,70,74,1)',
-            pointColor: 'rgba(247,70,74,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(247,70,74,0.8)'
-        },
-        { // green
-            fillColor: 'rgba(70,191,189,0.2)',
-            strokeColor: 'rgba(70,191,189,1)',
-            pointColor: 'rgba(70,191,189,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(70,191,189,0.8)'
-        },
-        { // yellow
-            fillColor: 'rgba(253,180,92,0.2)',
-            strokeColor: 'rgba(253,180,92,1)',
-            pointColor: 'rgba(253,180,92,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(253,180,92,0.8)'
-        },
-        { // grey
-            fillColor: 'rgba(148,159,177,0.2)',
-            strokeColor: 'rgba(148,159,177,1)',
-            pointColor: 'rgba(148,159,177,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(148,159,177,0.8)'
-        },
-        { // dark grey
-            fillColor: 'rgba(77,83,96,0.2)',
-            strokeColor: 'rgba(77,83,96,1)',
-            pointColor: 'rgba(77,83,96,1)',
-            pointStrokeColor: '#fff',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(77,83,96,1)'
-        }
-    ];
+    var anonymousChart = angular.module('anonymousChart', []);
 
     anonymousChart.directive('chart', function ($log) {
         return {
@@ -102,13 +44,16 @@
                             case 'polar':
                                 createPolarChart();
                                 break;
+                            case 'grid':
+                                createGrid();
+                                break;
                         }
                     } else {
                         console.log("Chart Type undefined!");
                     }
                 };
 
-                scope.$watch('chartType', function(newValue, oldValue) {
+                scope.$watch('chartType', function (newValue, oldValue) {
                     if (newValue !== undefined && newValue !== '' && newValue != oldValue) {
                         scope.processNewChartCreation(newValue);
                     }
@@ -151,22 +96,26 @@
                     chartCtxElement.PolarArea(getDataSetsForPolar(scope.data, scope.series), scope.options || {});
                 }
 
+                function createGrid() {
+                    element.get(0).replaceAll('');
+                }
+
                 function addSeriesContext() {
                     element.append('<ul class="list-group">' +
                     '<li class="list-group-item" ng-repeat="each in series">{{each}}</li>' +
                     '</ul>');
                 }
 
-                function getRandomColour (alpha) {
+                function getRandomColour(alpha) {
                     var colour = [getRandomInt(0, 255), getRandomInt(0, 255), getRandomInt(0, 255)];
                     return getColour(colour, alpha);
                 }
 
-                function getColour (colour, alpha) {
+                function getColour(colour, alpha) {
                     return rgba(colour, alpha);
                 }
 
-                function getRandomInt (min, max) {
+                function getRandomInt(min, max) {
                     return Math.floor(Math.random() * (max - min + 1)) + min;
                 }
 
@@ -185,11 +134,24 @@
                     });
                 }
 
+                function getRandomColorConfig() {
+
+                    var colour = [getRandomInt(0, 255), getRandomInt(0, 255), getRandomInt(0, 255)];
+                    return {
+                        fillColor: rgba(colour, 0.2),
+                        strokeColor: rgba(colour, 1),
+                        pointColor: rgba(colour, 1),
+                        pointStrokeColor: '#fff',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: rgba(colour, 0.8)
+                    };
+                }
+
                 function getDataSets(labels, data, series) {
                     return {
                         labels: labels,
                         datasets: data.map(function (item, i) {
-                            var dataSet = angular.copy(Chart.defaults.global.colours[i]);
+                            var dataSet = getRandomColorConfig();
                             dataSet.label = series[i];
                             dataSet.data = item;
                             return dataSet;
